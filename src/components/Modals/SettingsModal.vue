@@ -21,7 +21,7 @@
 
         <DialogFooter class="flex justify-end">
           <DialogClose as-child>
-            <Button variant="secondary" type="button" @click="onClose">Close</Button>
+            <Button variant="outline" type="button" @click="onClose">Close</Button>
             <Button class="flex items-center gap-2" type="submit" :disabled="isLoading">
               <Loader
                 v-if="isLoading"

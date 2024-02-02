@@ -6,6 +6,7 @@ import { supabase } from '@/api/supabase'
 import { Toaster } from '@/components/ui/sonner'
 import { useProfileStore } from '@/stores/profile'
 import ModalsWrapper from '@/components/Modals/ModalsWrapper.vue'
+import defaults from '@/constants/defaults'
 
 const authenticationStore = useAuthenticationStore()
 const profileStore = useProfileStore()
@@ -21,7 +22,7 @@ function themeSelector() {
   if (theme) {
     document.body.classList.add(theme)
   } else {
-    document.body.classList.add('dark')
+    document.body.classList.add(defaults.DEFAULT_THEME)
   }
 }
 

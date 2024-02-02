@@ -10,32 +10,36 @@
         <router-link to="/about">About</router-link>
       </nav>
 
-      <Popover>
-        <PopoverTrigger>
-          <div class="flex items-center gap-2 rounded-lg py-1 px-4">
-            <Avatar>
-              <AvatarImage :src="profileStore.profile?.avatar_url || ''" alt="user-avatar" />
-              <AvatarFallback>AN</AvatarFallback>
-            </Avatar>
+      <div class="flex items-center">
+        <ThemeSelector />
 
-            <span class="font-bold">{{ profileStore.username }}</span>
-          </div>
-        </PopoverTrigger>
+        <Popover>
+          <PopoverTrigger>
+            <div class="flex items-center gap-2 rounded-lg py-1 px-4">
+              <Avatar>
+                <AvatarImage :src="profileStore.profile?.avatar_url || ''" alt="user-avatar" />
+                <AvatarFallback>AN</AvatarFallback>
+              </Avatar>
 
-        <PopoverContent class="w-[200px] p-2" align="end" avoid-collisions>
-          <div class="flex flex-col gap-1 text-sm">
-            <router-link
-              v-for="(option, index) in userOptions"
-              :key="index"
-              class="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary"
-              :to="option.route"
-            >
-              <component :is="option.icon" :size="20" />
-              {{ option.label }}
-            </router-link>
-          </div>
-        </PopoverContent>
-      </Popover>
+              <span class="font-bold">{{ profileStore.username }}</span>
+            </div>
+          </PopoverTrigger>
+
+          <PopoverContent class="w-[200px] p-2" align="end" avoid-collisions>
+            <div class="flex flex-col gap-1 text-sm">
+              <router-link
+                v-for="(option, index) in userOptions"
+                :key="index"
+                class="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary"
+                :to="option.route"
+              >
+                <component :is="option.icon" :size="20" />
+                {{ option.label }}
+              </router-link>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   </header>
 </template>
@@ -45,6 +49,7 @@ import { BookHeartIcon, CogIcon, LogOutIcon } from 'lucide-vue-next'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { useProfileStore } from '@/stores/profile'
+import ThemeSelector from './ThemeSelector.vue'
 
 const userOptions = [
   { label: 'Settings', icon: CogIcon, route: '#settings' },
