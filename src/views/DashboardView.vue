@@ -1,6 +1,6 @@
 <template>
   <AuthenticatedLayout>
-    <h1>This is the about page</h1>
+    <h1>Home</h1>
   </AuthenticatedLayout>
 </template>
 
