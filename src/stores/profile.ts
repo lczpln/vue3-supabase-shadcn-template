@@ -32,7 +32,24 @@ export const useProfileStore = defineStore('profile', () => {
     profile.value = data
   }
 
-  async function updateProfile(newProfile: Profile) {}
+  async function updateProfile(newProfile: Partial<Profile>) {
+    if (!authenticationStore.user) return
+
+    const data = {
+      ...profile.value,
+      ...newProfile
+    } as Profile
+
+    const { error } = await supabase.from('profiles').upsert(data, { onConflict: 'id' })
+
+    if (error) {
+      return toast.error(error.message, {
+        description: error.details
+      })
+    }
+
+    await getProfile()
+  }
 
   return { profile, username, getProfile, updateProfile }
 })

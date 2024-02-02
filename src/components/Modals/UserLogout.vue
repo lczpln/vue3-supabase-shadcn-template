@@ -1,30 +1,19 @@
 <template>
-  <Dialog :open="isOpen" @update:open="onClose">
-    <DialogContent class="sm:max-w-md">
-      <DialogHeader>
-        <DialogTitle>Logout</DialogTitle>
-        <DialogDescription>Are you sure you want to logout?</DialogDescription>
-      </DialogHeader>
-      <DialogFooter class="flex justify-end">
-        <DialogClose as-child>
-          <Button variant="secondary" @click="onClose">Close</Button>
-          <Button
-            class="flex items-center gap-2"
-            variant="destructive"
-            @click="logout"
-            :disabled="isLoading"
-          >
-            <Loader
-              v-if="isLoading"
-              class="w-4 h-4 animate-spin"
-              fill="var(--primary-foreground)"
-            />
-            Logout
-          </Button>
-        </DialogClose>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
+  <AlertDialog :open="isOpen">
+    <AlertDialogContent>
+      <AlertDialogHeader>
+        <AlertDialogTitle>Logout</AlertDialogTitle>
+        <AlertDialogDescription>Are you sure you want to logout?</AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel @click="onClose">Cancel</AlertDialogCancel>
+        <AlertDialogAction class="flex items-center gap-2" @click="logout" :disabled="isLoading">
+          <Loader v-if="isLoading" class="w-4 h-4 animate-spin" fill="var(--primary-foreground)" />
+          Logout
+        </AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
 </template>
 
 <script setup lang="ts">
@@ -33,16 +22,16 @@ import { useAuthenticationStore } from '@/stores/authentication'
 import { useLoadingStore } from '@/stores/loading'
 import { Loader } from 'lucide-vue-next'
 import { useHashModal } from '@/hooks/useHashModal'
-import { Button } from '@/components/ui/button'
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog'
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog'
 
 const authenticationStore = useAuthenticationStore()
 const loadingStore = useLoadingStore()
