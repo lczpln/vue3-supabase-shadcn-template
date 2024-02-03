@@ -18,7 +18,7 @@
             <div class="flex items-center gap-2 rounded-lg py-1 px-4">
               <Avatar>
                 <AvatarImage :src="profileStore.profile?.avatar_url || ''" alt="user-avatar" />
-                <AvatarFallback>AN</AvatarFallback>
+                <AvatarFallback>{{ profileStore.avatarFallback }}</AvatarFallback>
               </Avatar>
 
               <span class="font-bold">{{ profileStore.username }}</span>

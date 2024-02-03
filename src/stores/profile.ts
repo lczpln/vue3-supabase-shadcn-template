@@ -13,6 +13,15 @@ export const useProfileStore = defineStore('profile', () => {
     () =>
       profile.value?.username || authenticationStore?.user?.email?.split('@')?.[0] || 'Anonymous'
   )
+  const avatarFallback = computed(() => {
+    const [firstName, secondName] = username.value.split(' ')
+
+    if (secondName) {
+      return `${firstName[0]}${secondName[0]}`.toUpperCase()
+    }
+
+    return `${firstName[0]}${username.value.charAt(1)}`.toUpperCase()
+  })
 
   async function getProfile() {
     if (!authenticationStore.user) return
@@ -51,5 +60,5 @@ export const useProfileStore = defineStore('profile', () => {
     await getProfile()
   }
 
-  return { profile, username, getProfile, updateProfile }
+  return { profile, username, avatarFallback, getProfile, updateProfile }
 })
