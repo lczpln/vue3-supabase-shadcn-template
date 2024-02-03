@@ -2,10 +2,12 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '@/api/supabase'
-import { toast } from 'vue-sonner'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 export const useAuthenticationStore = defineStore('authentication', () => {
   const user = ref<User | null>(null)
+
+  const { toast } = useToast()
 
   function setUser(newUser: User | null) {
     user.value = newUser
@@ -15,7 +17,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     const { error } = await supabase.auth.signUp(formData)
 
     if (error) {
-      return toast.error(error.name, {
+      return toast({
+        title: error.message,
         description: error.message
       })
     }
@@ -25,7 +28,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     const { error } = await supabase.auth.signInWithPassword(formData)
 
     if (error) {
-      return toast.error(error.name, {
+      return toast({
+        title: error.message,
         description: error.message
       })
     }
@@ -35,7 +39,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
-      return toast.error(error.name, {
+      return toast({
+        title: error.message,
         description: error.message
       })
     }

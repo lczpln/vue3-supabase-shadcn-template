@@ -1,9 +1,19 @@
+<template>
+  <div class="flex flex-col min-h-svh w-screen">
+    <RouterView />
+    <ModalsWrapper />
+    <div class="absolute">
+      <Toaster />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authentication'
 import { supabase } from '@/api/supabase'
-import { Toaster } from '@/components/ui/sonner'
+import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useProfileStore } from '@/stores/profile'
 import ModalsWrapper from '@/components/Modals/ModalsWrapper.vue'
 import defaults from '@/constants/defaults'
@@ -45,11 +55,3 @@ onMounted(() => {
   themeSelector()
 })
 </script>
-
-<template>
-  <div class="flex flex-col min-h-svh w-screen">
-    <RouterView />
-    <ModalsWrapper />
-    <Toaster position="top-right" />
-  </div>
-</template>

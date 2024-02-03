@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { Profile } from '@/types/profile'
 import { supabase } from '@/api/supabase'
-import { toast } from 'vue-sonner'
+import { useToast } from '@/components/ui/toast/use-toast'
 import { useAuthenticationStore } from './authentication'
 
 export const useProfileStore = defineStore('profile', () => {
@@ -23,6 +23,8 @@ export const useProfileStore = defineStore('profile', () => {
     return `${firstName[0]}${username.value.charAt(1)}`.toUpperCase()
   })
 
+  const { toast } = useToast()
+
   async function getProfile() {
     if (!authenticationStore.user) return
 
@@ -33,7 +35,8 @@ export const useProfileStore = defineStore('profile', () => {
       .single()
 
     if (error) {
-      return toast.error(error.message, {
+      return toast({
+        title: error.message,
         description: error.details
       })
     }
@@ -52,7 +55,8 @@ export const useProfileStore = defineStore('profile', () => {
     const { error } = await supabase.from('profiles').upsert(data, { onConflict: 'id' })
 
     if (error) {
-      return toast.error(error.message, {
+      return toast({
+        title: error.message,
         description: error.details
       })
     }
