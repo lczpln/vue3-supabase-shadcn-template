@@ -19,7 +19,7 @@
 
 - In SQL Editor, run this script to create a trigger that creates a new user profile for each user sign up
 
-```postgres
+```sql
 create table public.profiles (
 id uuid not null references auth.users on delete cascade,
 username text,
@@ -49,7 +49,7 @@ create trigger on_auth_user_created
 
 - Setting public access
 
-```postgres
+```sql
 create policy "Public profiles are viewable by everyone."
   on profiles for select
   using ( true );
@@ -65,7 +65,7 @@ create policy "Users can update own profile."
 
 - Setting private access
 
-```postgres
+```sql
 create policy "Profiles are viewable by users who created them."
   on profiles for select
   using ( auth.uid() = id );
