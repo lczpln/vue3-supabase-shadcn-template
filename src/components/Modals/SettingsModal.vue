@@ -13,9 +13,16 @@
             <Input id="username" type="text" v-model="form.username" />
           </div>
 
-          <div class="flex flex-col space-y-1.5">
-            <Label htmlFor="avatar_url">Avatar URL</Label>
-            <Input id="avatar_url" type="text" v-model="form.avatar_url" />
+          <div class="flex gap-2 items-end">
+            <div class="flex flex-col flex-1 space-y-1.5">
+              <Label htmlFor="avatar_url">Avatar URL</Label>
+              <Input id="avatar_url" type="text" v-model="form.avatar_url" />
+            </div>
+
+            <Avatar>
+              <AvatarImage :src="form.avatar_url || ''" alt="user-avatar" />
+              <AvatarFallback>{{ profileStore.avatarFallback }}</AvatarFallback>
+            </Avatar>
           </div>
         </div>
 
@@ -44,6 +51,7 @@ import { Loader } from 'lucide-vue-next'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { useProfileStore } from '../../stores/profile'
+import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar'
 import { useHashModal } from '@/hooks/useHashModal'
 import { Button } from '@/components/ui/button'
 import {
