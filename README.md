@@ -24,7 +24,7 @@ create table public.profiles (
 id uuid not null references auth.users on delete cascade,
 username text,
 avatar_url text null default 'https://github.com/shadcn.png'::text,
-constraint profiles_username_key unique (username)
+constraint profiles_username_key unique (username),
 primary key (id)
 );
 
